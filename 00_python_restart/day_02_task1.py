@@ -20,43 +20,69 @@ def get_room_rev(no_of_rooms):
             total_room_rev += price
     print("\n")
     print("------------")
-    print("Total room revenue: ", total_room_rev)
-    print("Average room revenue: ", total_room_rev/ no_of_rooms)
+    # print("Total room revenue: ", total_room_rev)
+    # print("Average room revenue: ", total_room_rev/ no_of_rooms)
+    return total_room_rev
 
 def get_food_revenue():
+
     """
       gets total food revenue
     """
+
     total_no_food_bills_generated = int(input("Enter total number of food bills generated: "))
     total_food_rev = 0
+    walk_in_bills =int(input("Enter total number of walk in bills"))
+    for tableno in range(1, walk_in_bills+1):
+        amt = float(input(f"Please enter total amount for table number {tableno}:"))
+        total_food_rev += amt
+    room_food = int(input("Please enter number of rooms that ordered room service: "))
+    for roomno in range(1, room_food+1):
+            amt = float(input(f"Please enter total amount for room number {roomno}: "))
+            total_food_rev += amt
+    remaining_food = 0
+    while walk_in_bills + room_food+ remaining_food != total_no_food_bills_generated:
+        total_food_rev += float(input("please enter remaining food bill amount: "))
+        remaining_food += 1
 
-    while total_no_food_bills_generated != 0:
-        walk_in_dining = int(input("Please enter number of walk in guest for food: "))
-        for walk in range(1, walk_in_dining+1):
-            total_food_rev += float(input(f"Total Amount for walk in guest on table no {walk}: "))
-        total_no_food_bills_generated -= walk_in_dining
+    return total_no_food_bills_generated, total_food_rev, room_food, walk_in_bills
 
-        print("\n")
-        print("------------")
+def display(no_of_rooms, total_room_rev, total_no_food_bills_generated, total_food_rev, room_food, walk_in_bills):
 
-        room_food = int(input("Please enter number of rooms that ordered room service: "))
-        for room_no in range(1, room_food+1):
-            total_food_rev += float(input(f"Total Amount for room number {room_no}"))
-        total_no_food_bills_generated -= room_food
+     """
+     Displays in detail information of revenue for the day
+     """
+     # display room information
+     print("\n")
+     print("------------")
+     print("ROOM INFORMATION")
+     print("------------")
+     print(f"Total number of rooms: {no_of_rooms}")
+     print(f"Total room revenue: {total_room_rev}")
+     print(f"Average room revenue: {total_room_rev / no_of_rooms}")
 
-        print("\n")
-        print("------------")
-
-        if total_no_food_bills_generated != 0:
-             print("Enter correc information")
-        else:
-             print("Total food revenue: ", total_food_rev)
-
-
-
+     # display food information
+     print("\n")
+     print("------------")
+     print("FOOD INFORMATION")
+     print("------------")
+     print(f"Total number of food bills today: {total_no_food_bills_generated}")
+     print(f"Total amount of food: {total_food_rev}")
+     print(f"Total number of walk in bills: {walk_in_bills}")
+     print(f"Total number of room service bills: {room_food}")
 
 
       
 print("Welcome to my application")
-# get_room_rev(int(input("Please enter number of rooms occupied today: ")))
-get_food_revenue()
+try:
+    no_of_rooms = int(input("Please enter number of rooms occupied today: "))
+    if no_of_rooms <= 0:
+        raise ValueError("The number must be greater than zero!")
+    
+except ValueError:
+    print("Invalid input. Please enter a valid number.")
+
+else:
+    total_room_rev = get_room_rev(no_of_rooms)
+    total_no_food_bills_generated, total_food_rev, room_food, walk_in_bills = get_food_revenue()
+    display(no_of_rooms, total_room_rev, total_no_food_bills_generated, total_food_rev, room_food, walk_in_bills)
