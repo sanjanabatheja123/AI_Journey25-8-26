@@ -1,28 +1,17 @@
-# no_of_rooms_occ = int(input("Number of rooms occupied: "))
-# total_rev = 0
 
-# for each_room in range(1, no_of_rooms_occ + 1):
-#     price = float(input(f"Enter price for room no {each_room}: "))
-#     total_rev += price
-
-# food_rev = float(input("Food revenue: "))
-# other_rev = float(input("Other revenue: "))
-
-# print("Total revenue: ", total_rev + food_rev + other_rev)
 
 def get_room_rev(no_of_rooms):
     """
     input no of rooms and sums up total and average room revenue
     """
-    total_room_rev = 0
-    for each_room_no in range(1, no_of_rooms+1):
-            price = float(input(f"Enter price for room no {each_room_no}: "))
-            total_room_rev += price
-    print("\n")
-    print("------------")
-    # print("Total room revenue: ", total_room_rev)
-    # print("Average room revenue: ", total_room_rev/ no_of_rooms)
-    return total_room_rev
+    room_no_list = []
+    each_room_rev = []
+    for _ in range(0, no_of_rooms):
+        room_no = int(input("Enter room number: "))
+        price = float(input(f"Enter price for room no {room_no}: "))
+        room_no_list.append(room_no)
+        each_room_rev.append(price)
+    return room_no_list, each_room_rev
 
 def get_food_revenue():
 
@@ -47,7 +36,7 @@ def get_food_revenue():
 
     return total_no_food_bills_generated, total_food_rev, room_food, walk_in_bills
 
-def display(no_of_rooms, total_room_rev, total_no_food_bills_generated, total_food_rev, room_food, walk_in_bills):
+def display(no_of_rooms, room_no_list, each_room_rev, total_no_food_bills_generated, total_food_rev, room_food, walk_in_bills):
 
      """
      Displays in detail information of revenue for the day
@@ -58,8 +47,13 @@ def display(no_of_rooms, total_room_rev, total_no_food_bills_generated, total_fo
      print("ROOM INFORMATION")
      print("------------")
      print(f"Total number of rooms: {no_of_rooms}")
-     print(f"Total room revenue: {total_room_rev}")
-     print(f"Average room revenue: {total_room_rev / no_of_rooms}")
+     print(f"Revenue for each room:")
+     for rno, rev in zip(room_no_list, each_room_rev):
+         print(f"Room {rno}: {rev}")
+     print(f"Total room revenue: {sum(each_room_rev)}")
+     print(f"Maximum room revenue: {max(each_room_rev)}")
+     print(f"Average room revenue: {sum(each_room_rev) / no_of_rooms}")
+     print(f"Minimum room revenue: {min(each_room_rev)}")
 
      # display food information
      print("\n")
@@ -83,6 +77,6 @@ except ValueError:
     print("Invalid input. Please enter a valid number.")
 
 else:
-    total_room_rev = get_room_rev(no_of_rooms)
+    room_no_list, each_room_rev = get_room_rev(no_of_rooms)
     total_no_food_bills_generated, total_food_rev, room_food, walk_in_bills = get_food_revenue()
-    display(no_of_rooms, total_room_rev, total_no_food_bills_generated, total_food_rev, room_food, walk_in_bills)
+    display(no_of_rooms, room_no_list, each_room_rev, total_no_food_bills_generated, total_food_rev, room_food, walk_in_bills)
