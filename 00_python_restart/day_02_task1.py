@@ -2,7 +2,8 @@
 
 def get_room_rev(no_of_rooms):
     """
-    input no of rooms and sums up total and average room revenue
+    Gets room numbers and individual room revenues.
+    Returns both lists.
     """
     room_no_list = []
     each_room_rev = []

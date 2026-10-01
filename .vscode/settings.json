@@ -1,0 +1,9 @@
+{
+    "editor.wordWrap": "on",
+    "files.autoSave": "afterDelay",
+    "editor.inlineSuggest.edits.renderSideBySide": "never",
+    "editor.inlineSuggest.edits.allowCodeShifting": "never",
+    "editor.inlineSuggest.minShowDelay": 30,
+    "editor.inlineSuggest.suppressInSnippetMode": true,
+    "editor.inlineSuggest.suppressSuggestions": true
+}
